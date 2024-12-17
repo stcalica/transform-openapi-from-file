@@ -11,7 +11,13 @@ async function run() {
             if (!result.result) {
                 core.setFailed(`Conversion failed: ${result.reason}`);
             } else {
-                core.setOutput('postman_collection', JSON.stringify(result.output[0].data));
+                if (outputFilePath) {
+                    fs.writeFileSync(outputFilePath, JSON.stringify(postmanCollection, null, 2), 'utf8');
+                    console.log(`Postman collection written to ${outputFilePath}`);
+                    core.setOutput('postman_collection', outputFilePath);
+                } else {
+                    core.setOutput('postman_collection', JSON.stringify(postmanCollection, null, 2));
+                }
             }
         });
     } catch (error) {
