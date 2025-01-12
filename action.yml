@@ -1,13 +1,20 @@
 name: "Transform OpenAPI to Postman Collection (from File)"
 description: "Transforms an OpenAPI schema from a file into a Postman Collection."
+
 inputs:
   openapi_schema_path:
-    description: "The file path of the OpenAPI schema"
+    description: "The file path of the OpenAPI schema."
     required: true
     type: string
+  output_file:
+    description: "The file path to save the Postman collection JSON."
+    required: false
+    default: "./postman-collection.json"
+
 outputs:
-  postman_collection:
-    description: "The Postman collection JSON generated from the OpenAPI schema"
+  postman_collection_file:
+    description: "The file path of the generated Postman collection JSON."
+
 runs:
   using: "node16"
   main: "index.js"
